@@ -1,2 +1,2 @@
 # Installation
-To get a virtualenvironment: run init.sh
+To get a virtualenvironment: run _bin/init.sh

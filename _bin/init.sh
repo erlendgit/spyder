@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-if [[ ! -d 'venv' ]]; then
+if [[ ! -d '_bin/venv' ]]; then
   echo "Create virtual environment"
-  python3 -m venv venv --prompt sPYder
+  python3 -m venv _bin/venv --prompt sPYder
 fi
 
-source venv/bin/activate
+source _bin/venv/bin/activate
 
 if [[ -f requirements.txt ]]; then
   echo "Install requirements"
