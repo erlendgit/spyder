@@ -15,17 +15,17 @@ class Newsfeed(models.Model):
 
 
 class NewsfeedAdmin(admin.ModelAdmin):
-    fields = ('id', 'description', 'active', 'url')
-    list_display = ('description', 'active', 'url')
+    fields = ('id', 'description', 'url', 'active')
+    list_display = ('description', 'url', 'active')
     readonly_fields = ('id',)
 
 
 class Newsitem(models.Model):
     """ Newsitem, details about the newsitem.
     """
-
+    id = models.TextField(primary_key=True, max_length=40, null=False)
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=255, null=False)
-    target = models.URLField(null=False)
+    url = models.URLField(null=False)
     published = models.DateTimeField(null=False)
     newsfeed = models.ForeignKey(to='Newsfeed', on_delete=models.CASCADE)
