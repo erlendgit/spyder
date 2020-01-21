@@ -1,5 +1,5 @@
 .idea/
 _bin/venv/
-_bin/log/*.log
+_bin/*.log
 __pycache__/
 *.sqlite3

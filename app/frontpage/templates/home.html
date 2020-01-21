@@ -1,6 +1,22 @@
-{% extends 'bootstrap.html' %}
+{% extends 'base.html' %}
+{% load spider_tags %}
+{% load i18n %}
 
 {% block content %}
-<h1>Superduper!</h1>
-<p>Let's nail this!</p>
+    <div class="container">
+        <div class="row">
+            <div class="col col-6">
+                <h3>{% trans "Slow" %}</h3>
+                {% slow_feeditems %}
+                <h3>{% trans "Normal" %}</h3>
+                {% normal_feeditems %}
+            </div>
+            <div class="col col-6">
+                <h3>{% trans "Fast" %}</h3>
+                {% fast_feeditems %}
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}

@@ -32,3 +32,8 @@ main > .container {
 code {
     font-size: 80%;
 }
+
+.small-intro {
+    color: gray;
+    font-size: .75em;
+}
