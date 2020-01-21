@@ -4,7 +4,7 @@
         <ul class="list-group">
             {% for item in items %}
                 <li class="list-group-item">
-                    <div class="small-intro">{{ item.newsfeed.toi|default:item.newsfeed.description|upper }}
+                    <div class="small-intro">{{ item.newsfeed.slug|default:item.newsfeed.description|upper }}
                         - {{ item.published|date:"j E Y H:i" }}</div>
                     {{ item.title }}
 

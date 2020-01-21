@@ -18,11 +18,13 @@ def fast_feeditems():
         'items': Newsitem.objects.filter(newsfeed__category='fast')[:30]
     }
 
+
 @register.inclusion_tag('spider/feeditems.html')
 def normal_feeditems():
     return {
         'items': Newsitem.objects.filter(newsfeed__category='normal')[:15]
     }
+
 
 @register.inclusion_tag('spider/feeditems.html')
 def slow_feeditems():
