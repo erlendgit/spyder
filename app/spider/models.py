@@ -11,13 +11,13 @@ class Newsfeed(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     url = models.URLField(null=False)
     description = models.CharField(max_length=255, null=False)
+    active = models.BooleanField(default=True)
 
 
 class NewsfeedAdmin(admin.ModelAdmin):
-    fields = ('id', 'description', 'url')
-    list_display = ('description', 'url')
+    fields = ('id', 'description', 'active', 'url')
+    list_display = ('description', 'active', 'url')
     readonly_fields = ('id',)
-    pass
 
 
 class Newsitem(models.Model):

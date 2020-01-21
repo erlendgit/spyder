@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=255)),
                 ('target', models.URLField()),
                 ('published', models.DateTimeField()),
-                ('newsfeed', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='spider.Newsfeed')),
+                ('newsfeed', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app.spider.Newsfeed')),
             ],
         ),
     ]

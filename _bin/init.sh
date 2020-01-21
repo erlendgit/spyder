@@ -9,11 +9,5 @@ source _bin/venv/bin/activate
 
 if [[ -f requirements.txt ]]; then
   echo "Install requirements"
-  pip install -r requirements.txt
+  pip install -r _project/requirements.txt
 fi
-
-if [[ -f requirements.dev.txt ]] && [[ $1 != 'production' ]]; then
-  echo "Install dev requirements"
-  pip install -r requirements.dev.txt
-fi
-

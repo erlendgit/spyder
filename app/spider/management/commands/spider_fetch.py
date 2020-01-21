@@ -2,7 +2,7 @@ from argparse import ArgumentParser
 
 from django.core.management import BaseCommand, CommandError
 
-from spider.models import Newsfeed
+from app.spider.models import Newsfeed
 
 
 class Command(BaseCommand):
