@@ -1,4 +1,5 @@
 .idea/
 _bin/venv/
+_bin/log/*.log
 __pycache__/
 *.sqlite3

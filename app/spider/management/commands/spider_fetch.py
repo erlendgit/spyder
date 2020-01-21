@@ -11,6 +11,7 @@ from app.spider.models import Newsfeed, Newsitem
 
 logger = logging.getLogger(__name__)
 
+
 class Command(BaseCommand):
     help = "Crawl one or all newsfeeds."
 
@@ -40,17 +41,17 @@ class Command(BaseCommand):
             raise CommandError("Invalid input.")
 
     def _process_all(self):
-        for feed in Newsfeed.objects.all():
+        for feed in Newsfeed.objects.filter(active=True):
             self._process_feed(feed)
 
     def _process_feed(self, newsfeed: Newsfeed):
-        logger.info("Fetch %s" % newsfeed.description)
+        self.stdout.write("Fetch %s" % newsfeed.description)
         feed_content = feedparser.parse(newsfeed.url)
         for entry in feed_content['entries']:
-            id = hashlib.sha1(str(entry['id'] or entry['link']).encode()).hexdigest()
-            # if Newsitem.objects.filter(id=id).count() > 0:
-            #     continue
             try:
+                id = hashlib.sha1(str(entry.get('id') or entry['link']).encode()).hexdigest()
+                if Newsitem.objects.filter(id=id).count() > 0:
+                    continue
                 Newsitem.objects.create(title=entry['title'],
                                         url=entry['link'],
                                         id=id,
