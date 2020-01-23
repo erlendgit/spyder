@@ -1,33 +1,14 @@
 from django import template
 
-from app.spider.models import Newsitem
+from app.spider.render_helpers import get_feeditems_context
 
 register = template.Library()
 
 
-@register.inclusion_tag('spider/feeditems.html')
-def all_feeditems():
-    return {
-        'items': Newsitem.objects.all()[:15]
-    }
-
-
-@register.inclusion_tag('spider/feeditems.html')
-def fast_feeditems():
-    return {
-        'items': Newsitem.objects.filter(newsfeed__category='fast')[:30]
-    }
-
-
-@register.inclusion_tag('spider/feeditems.html')
-def normal_feeditems():
-    return {
-        'items': Newsitem.objects.filter(newsfeed__category='normal')[:15]
-    }
-
-
-@register.inclusion_tag('spider/feeditems.html')
-def slow_feeditems():
-    return {
-        'items': Newsitem.objects.filter(newsfeed__category='slow')[:10]
-    }
+@register.inclusion_tag('spider/feeditems.html', takes_context=True)
+def feeditems(context, count=15, category=''):
+    return get_feeditems_context(
+        current_page=context.get('request').GET.get('page'),
+        count=count,
+        category=category
+    )

@@ -18,17 +18,26 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app.common',
-    'app.frontpage',
-    'app.spider',
 ]
+
+THIRDPARTY_APPS = [
+    'django_extensions',
+]
+
+LOCAL_APPS = [
+    'app.common.apps.CommonConfig',
+    'app.frontpage.apps.FrontpageConfig',
+    'app.spider.apps.SpiderConfig',
+]
+
+INSTALLED_APPS = DJANGO_APPS + THIRDPARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

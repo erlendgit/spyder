@@ -33,7 +33,29 @@ code {
     font-size: 80%;
 }
 
+.tags,
 .small-intro {
     color: gray;
     font-size: .75em;
+}
+
+.tags {
+    margin-top: .25em;
+    padding-top: .25em;
+    border-top: 1px solid lightgray;
+}
+
+.feeditems .nav {
+    margin: 1em 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.feeditems .next {
+    float: right;
+}
+
+.feeditems .previous {
+    float: left;
 }

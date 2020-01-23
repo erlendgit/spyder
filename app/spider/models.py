@@ -52,6 +52,7 @@ class Newsitem(models.Model):
     url = models.URLField(null=False)
     published = models.DateTimeField(null=False)
     newsfeed = models.ForeignKey(to='Newsfeed', on_delete=models.CASCADE)
+    tags = models.TextField(blank=True, null=True)
 
     class Meta:
         ordering = ['-published']

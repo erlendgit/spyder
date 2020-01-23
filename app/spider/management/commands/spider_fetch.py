@@ -47,16 +47,24 @@ class Command(BaseCommand):
     def _process_feed(self, newsfeed: Newsfeed):
         self.stdout.write("Fetch %s" % newsfeed.description)
         feed_content = feedparser.parse(newsfeed.url)
-        for entry in feed_content['entries']:
-            try:
-                id = hashlib.sha1(str(entry.get('id') or entry['link']).encode()).hexdigest()
-                if Newsitem.objects.filter(id=id).count() > 0:
-                    continue
-                Newsitem.objects.create(title=entry['title'],
-                                        url=entry['link'],
-                                        id=id,
-                                        published=parser.parse(entry['published']),
-                                        newsfeed=newsfeed) \
-                    .save()
-            except Exception as e:
-                logger.error(str(e))
+        for entry in feed_content.get('entries', []):
+            self._process_entry(newsfeed, entry)
+
+    def _process_entry(self, newsfeed: Newsfeed, entry: dict):
+        try:
+            id = hashlib.sha1(str(entry.get('id') or entry['link']).encode()).hexdigest()
+            if Newsitem.objects.filter(id=id).count() > 0:
+                return
+            Newsitem.objects.create(title=entry['title'],
+                                    url=entry['link'],
+                                    id=id,
+                                    published=parser.parse(entry['published']),
+                                    newsfeed=newsfeed,
+                                    tags=tags_from_feed_item(entry)) \
+                .save()
+        except Exception as e:
+            logger.error(str(e))
+
+
+def tags_from_feed_item(feed_item):
+    return ', '.join([n.get('term') for n in filter(lambda x: x.get('term'), feed_item.get('tags', {}))])

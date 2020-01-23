@@ -1,16 +1,35 @@
 {% load i18n %}
-<div class="card">
-    {% if items|length > 0 %}
+{% if items|length > 0 %}
+    <div class="feeditems">
+        <div class="nav w-100">
+            {% if items.has_previous %}
+                <a href='#' class="reload previous btn btn-info"
+                   data-target="{% url 'spider:load_feeditems' %}"
+                   data-category="{{ category }}"
+                   data-count="{{ count }}"
+                   data-next-page="{{ items.previous_page_number }}">Previous</a>
+            {% endif %}
+            <span class="separator"></span>
+            {% if items.has_next %}
+                <a href="#" class="reload next btn btn-info"
+                   data-target="{% url 'spider:load_feeditems' %}"
+                   data-category="{{ category }}"
+                   data-count="{{ count }}"
+                   data-next-page="{{ items.next_page_number }}">Next</a>
+            {% endif %}
+        </div>
         <ul class="list-group">
             {% for item in items %}
                 <li class="list-group-item">
                     <div class="small-intro">{{ item.newsfeed.slug|default:item.newsfeed.description|upper }}
                         - {{ item.published|date:"j E Y H:i" }}</div>
                     {{ item.title }}
-
                     <a target="_blank" href="{{ item.url }}">{% trans "read" %}</a>
+                    {% if item.tags %}
+                        <div class="tags">{{ item.tags }}</div>
+                    {% endif %}
                 </li>
             {% endfor %}
         </ul>
-    {% endif %}
-</div>
+    </div>
+{% endif %}
